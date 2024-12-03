@@ -14,3 +14,7 @@ name = "Aoc2024"
 name = "day1"
 root = "Day1"
 
+[[lean_exe]]
+name = "day2"
+root = "Day2"
+
