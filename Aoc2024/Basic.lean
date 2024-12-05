@@ -18,3 +18,14 @@ partial def separated (sep : Parser Unit) (value : Parser α) : Parser (List α)
     (sep *> loop res) <|> pure res
 
   Array.toList <$> loop #[]
+
+def countOccurrences (p : Parser Unit) (v : String) : Nat :=
+  let rec loop (it : String.Iterator) : Nat :=
+    if it.atEnd then
+      0
+    else
+      let tail_res := loop it.next
+      match p it with
+      | .success _ _ => (1 + tail_res)
+      | .error _ _ => tail_res
+  loop v.iter
