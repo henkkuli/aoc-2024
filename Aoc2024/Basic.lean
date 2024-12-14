@@ -29,3 +29,9 @@ def countOccurrences (p : Parser Unit) (v : String) : Nat :=
       | .success _ _ => (1 + tail_res)
       | .error _ _ => tail_res
   loop v.iter
+
+def Array.get2D? (a : Array (Array α)) (y x : Int) : Option α :=
+  if y < 0 ∨ x < 0 then
+    none
+  else
+    a.get? y.toNat >>= fun r => r.get? x.toNat

@@ -8,12 +8,6 @@ open Std.Internal.Parsec.String
 def parser : Parser (Array (Array Nat)) :=
   many (many ((fun c => c.toNat - '0'.toNat) <$> digit) <* pchar '\n') <* eof
 
-def Array.get2D? (a : Array (Array α)) (y x : Int) : Option α :=
-  if y < 0 ∨ x < 0 then
-    none
-  else
-    a.get? y.toNat >>= fun r => r.get? x.toNat
-
 def part1 (map : Array (Array Nat)) : Nat :=
   let moveHigher : Int × Int → List (Int × Int)
   | ⟨y, x⟩ =>
