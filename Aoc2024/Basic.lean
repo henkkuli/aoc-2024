@@ -35,3 +35,13 @@ def Array.get2D? (a : Array (Array α)) (y x : Int) : Option α :=
     none
   else
     a.get? y.toNat >>= fun r => r.get? x.toNat
+
+def Array.set2D (a : Array (Array α)) (y x : Int) (val : α) : Array (Array α) :=
+  if hy : 0 ≤ y ∧ y < a.size then
+    let row := a[y.toNat]
+    if hx : 0 ≤ x ∧ x < row.size then
+      a.set ⟨y.toNat, by simp [hy]⟩ <| row.set ⟨x.toNat, by simp [hx]⟩ val
+    else
+      a
+  else
+    a
